@@ -1,14 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 
-const CreateInputForm = () => {
+const CreateInputForm = (props) => {
+  const [text, setText] = useState("");
+  
+  const textInputHandler = (event) => {
+     setText(event.target.value)
+  }
+
+  const addBtnHandler = () => {
+   props.addTask(text);
+    setText("")
+  }
+
   return (
     <div className=" mt-3 flex">
       <input
         type="text"
         className="border border-gray-900 py-1 ps-3 w-full"
         placeholder="Enter your lists"
+        value={text}
+        onChange={textInputHandler}
       />
-      <button className=" bg-gray-500 px-2 py-1 text-white">
+      <button onClick={addBtnHandler} className=" bg-gray-500 px-2 py-1 text-white">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

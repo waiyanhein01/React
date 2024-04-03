@@ -1,4 +1,4 @@
-import Wyh from "./Wyh";
+// import Wyh from "./Wyh";
 
 const App = () => {
   // inline

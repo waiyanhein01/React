@@ -1,11 +1,22 @@
 import React from "react";
 
 const Lists = (props) => {
+
+  const checkBoxHandler = () => {
+    props.checkTask(props.id);
+  };
+
+  const delBtnHandler = () => {
+    if(confirm("Are u sure to delete?")) {
+      props.deleteTask(props.id)
+    }
+  }
+
   return (
     <div>
       <div
         id
-        className={`list group list-Group animate__animated animate__bounceIn bg-gray-50 overflow-hidden flex justify-between items-center border border-zinc-700 p-3 mt-3 mb-3 ${props.isDone ? 'bg-red-500' : " bg-green-500"} `}
+        className={`list group list-Group animate__animated animate__bounceIn bg-gray-50 overflow-hidden flex justify-between items-center border border-zinc-700 p-3 mt-3 mb-3 duration-200 ${props.isDone ? 'bg-gray-200 opacity-60 scale-95 pointer-events-none' : " bg-gray-50"} `}
       >
         <div id className="flex gap-2 items-center">
           <input
@@ -14,8 +25,9 @@ const Lists = (props) => {
             name="check-box"
             id="checkBox"
             checked={props.isDone}
+            onChange={checkBoxHandler}
           />
-          <label className="list-text" htmlFor="checkBox">
+          <label className={` ${props.isDone && 'line-through'} list-text`} htmlFor="checkBox">
             {props.job}
           </label>
         </div>
@@ -36,7 +48,7 @@ const Lists = (props) => {
               />
             </svg>
           </button>
-          <button className="list-del-btn border border-zinc-700 px-2 py-1 active:scale-75 duration-200">
+          <button onClick={delBtnHandler} className="list-del-btn border border-zinc-700 px-2 py-1 active:scale-75 duration-200">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
