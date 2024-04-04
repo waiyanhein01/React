@@ -1,22 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Lists = (props) => {
+  const [isEdit, setIsEdit] = useState(false);
+  const [inputText, setInputText] = useState(props.job)
 
   const checkBoxHandler = () => {
     props.checkTask(props.id);
   };
 
   const delBtnHandler = () => {
-    if(confirm("Are u sure to delete?")) {
-      props.deleteTask(props.id)
+    if (confirm("Are u sure to delete?")) {
+      props.deleteTask(props.id);
     }
+  };
+
+  const editBtnHandler = () => {
+    setIsEdit(true);
+  };
+
+  const editInputText = (event) => {
+     setInputText(event.target.value);
+  }
+
+  const editInputTextUpdate = (event) => {
+     if(event.key === "Enter") {
+      // console.log("Update")
+      props.editTask(inputText, props.id)
+      setIsEdit(false);
+     }
   }
 
   return (
     <div>
       <div
         id
-        className={`list group list-Group animate__animated animate__bounceIn bg-gray-50 overflow-hidden flex justify-between items-center border border-zinc-700 p-3 mt-3 mb-3 duration-200 ${props.isDone ? 'bg-gray-200 opacity-60 scale-95 pointer-events-none' : " bg-gray-50"} `}
+        className={`list group list-Group animate__animated animate__bounceIn bg-gray-50 overflow-hidden flex justify-between items-center border border-zinc-700 p-3 mt-3 mb-3 duration-200 ${
+          props.isDone
+            ? "bg-gray-200 opacity-60 scale-95 pointer-events-none"
+            : " bg-gray-50"
+        } `}
       >
         <div id className="flex gap-2 items-center">
           <input
@@ -26,13 +48,25 @@ const Lists = (props) => {
             id="checkBox"
             checked={props.isDone}
             onChange={checkBoxHandler}
+            disabled = {isEdit}
           />
-          <label className={` ${props.isDone && 'line-through'} list-text`} htmlFor="checkBox">
-            {props.job}
-          </label>
+
+          {isEdit ? (
+            <input onKeyUp={editInputTextUpdate} onChange={editInputText} value={inputText} className="border border-gray-300" />
+          ) : (
+            <h1
+              className={` ${props.isDone && "line-through"} list-text`}
+              htmlFor="checkBox"
+            >
+              {props.job}
+            </h1>
+          )}
         </div>
         <div className="flex gap-2 translate-x-[120%] group-hover:translate-x-0 duration-300">
-          <button className="list-edit-btn border border-zinc-700 px-2 py-1 active:scale-75 duration-200">
+          <button
+            onClick={editBtnHandler}
+            className="list-edit-btn border border-zinc-700 px-2 py-1 active:scale-75 duration-200"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -48,7 +82,10 @@ const Lists = (props) => {
               />
             </svg>
           </button>
-          <button onClick={delBtnHandler} className="list-del-btn border border-zinc-700 px-2 py-1 active:scale-75 duration-200">
+          <button
+            onClick={delBtnHandler}
+            className="list-del-btn border border-zinc-700 px-2 py-1 active:scale-75 duration-200"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
