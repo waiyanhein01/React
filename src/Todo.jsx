@@ -60,7 +60,7 @@ const Todo = () => {
   }
   return (
     <div className=" flex flex-col justify-center items-center h-screen bg-slate-200">
-      <div className=" border w-[450px] px-10 py-16 rounded-md bg-slate-50">
+      <div className=" border w-[350px] lg:w-[450px] px-10 py-16 rounded-md bg-slate-50 overflow-y-scroll">
         <Heading text="Todo App" />
         <CreateInputForm addTask={addTask} />
         <ListStatus tasks={tasks} />
