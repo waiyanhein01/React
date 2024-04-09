@@ -3,6 +3,7 @@ import Heading from "./Heading";
 import ListGroup from "./ListGroup";
 import ListStatus from "./ListStatus";
 import React, { useState } from "react";
+import { Toaster } from "react-hot-toast";
 
 const Todo = () => {
   const [tasks, setTask] = useState([
@@ -38,33 +39,44 @@ const Todo = () => {
   };
 
   const checkTask = (id) => {
-    setTask(tasks.map((task) => {
-      if(id === task.id) {
-        task.isDone = !task.isDone;
-      }
-      return task;
-    }))
+    setTask(
+      tasks.map((task) => {
+        if (id === task.id) {
+          task.isDone = !task.isDone;
+        }
+        return task;
+      })
+    );
   };
 
   const deleteTask = (id) => {
-    setTask(tasks.filter((task) => task.id !== id)) 
-  }
+    setTask(tasks.filter((task) => task.id !== id));
+  };
 
   const editTask = (newJob, id) => {
-    setTask(tasks.map((task) => {
-      if(id === task.id) {
-        task.job = newJob;
-      }
-      return task;
-    })) 
-  }
+    setTask(
+      tasks.map((task) => {
+        if (id === task.id) {
+          task.job = newJob;
+        }
+        return task;
+      })
+    );
+  };
+
   return (
     <div className=" flex flex-col justify-center items-center h-screen bg-slate-200">
       <div className=" border w-[350px] lg:w-[450px] px-10 py-16 rounded-md bg-slate-50 overflow-y-scroll">
         <Heading text="Todo App" />
         <CreateInputForm addTask={addTask} />
         <ListStatus tasks={tasks} />
-        <ListGroup editTask={editTask} deleteTask={deleteTask} checkTask={checkTask} tasks={tasks}/>
+        <ListGroup
+          editTask={editTask}
+          deleteTask={deleteTask}
+          checkTask={checkTask}
+          tasks={tasks}
+        />
+        <Toaster position="bottom-right" reverseOrder={true} />
       </div>
     </div>
   );

@@ -1,16 +1,26 @@
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 const CreateInputForm = (props) => {
   const [text, setText] = useState("");
-  
+
   const textInputHandler = (event) => {
-     setText(event.target.value)
-  }
+    setText(event.target.value);
+  };
 
   const addBtnHandler = () => {
-   props.addTask(text);
-    setText("")
-  }
+    props.addTask(text);
+    setText("");
+    toast.success("New List!");
+  };
+
+  const enterHandler = (event) => {
+    if (event.key === "Enter") {
+      props.addTask(text);
+      setText("");
+      toast.success("New List!");
+    }
+  };
 
   return (
     <div className=" mt-3 flex">
@@ -20,8 +30,12 @@ const CreateInputForm = (props) => {
         placeholder="Enter your lists"
         value={text}
         onChange={textInputHandler}
+        onKeyUp={enterHandler}
       />
-      <button onClick={addBtnHandler} className=" bg-gray-500 px-2 py-1 text-white">
+      <button
+        onClick={addBtnHandler}
+        className=" bg-gray-500 px-2 py-1 text-white"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

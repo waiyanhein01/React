@@ -1,17 +1,33 @@
 import React, { useState } from "react";
+import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const Lists = (props) => {
   const [isEdit, setIsEdit] = useState(false);
-  const [inputText, setInputText] = useState(props.job)
+  const [inputText, setInputText] = useState(props.job);
 
   const checkBoxHandler = () => {
     props.checkTask(props.id);
   };
 
   const delBtnHandler = () => {
-    if (confirm("Are u sure to delete?")) {
-      props.deleteTask(props.id);
-    }
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Delete!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        props.deleteTask(props.id);
+        toast.success("List Deleted!");
+      }
+    });
+    // if (confirm("Are u sure to delete?")) {
+    //   props.deleteTask(props.id);
+    // }
   };
 
   const editBtnHandler = () => {
@@ -19,16 +35,16 @@ const Lists = (props) => {
   };
 
   const editInputText = (event) => {
-     setInputText(event.target.value);
-  }
+    setInputText(event.target.value);
+  };
 
   const editInputTextUpdate = (event) => {
-     if(event.key === "Enter") {
+    if (event.key === "Enter") {
       // console.log("Update")
-      props.editTask(inputText, props.id)
+      props.editTask(inputText, props.id);
       setIsEdit(false);
-     }
-  }
+    }
+  };
 
   return (
     <div>
@@ -48,11 +64,16 @@ const Lists = (props) => {
             id="checkBox"
             checked={props.isDone}
             onChange={checkBoxHandler}
-            disabled = {isEdit}
+            disabled={isEdit}
           />
 
           {isEdit ? (
-            <input onKeyUp={editInputTextUpdate} onChange={editInputText} value={inputText} className="border border-gray-300" />
+            <input
+              onKeyUp={editInputTextUpdate}
+              onChange={editInputText}
+              value={inputText}
+              className="border border-gray-300"
+            />
           ) : (
             <h1
               className={` ${props.isDone && "line-through"} list-text`}
