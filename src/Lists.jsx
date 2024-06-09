@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import InputEdit from "./InputEdit";
 
 const Lists = (props) => {
   const [isEdit, setIsEdit] = useState(false);
@@ -68,20 +69,15 @@ const Lists = (props) => {
           />
 
           {isEdit ? (
-            <input
-              onKeyUp={editInputTextUpdate}
-              onChange={editInputText}
-              value={inputText}
-              className="border border-gray-300"
-            />
-          ) : (
-            <h1
-              className={` ${props.isDone && "line-through"} list-text`}
-              htmlFor="checkBox"
-            >
-              {props.job}
-            </h1>
-          )}
+      <InputEdit editInputTextUpdate={editInputTextUpdate} editInputText={editInputText} inputText={inputText}/>
+      ) : (
+      <h1
+        className={` ${props.isDone && "line-through"} list-text`}
+        htmlFor="checkBox"
+      >
+        {props.job}
+      </h1>
+      )}
         </div>
         <div className="flex gap-2 translate-x-[120%] group-hover:translate-x-0 duration-300">
           <button
