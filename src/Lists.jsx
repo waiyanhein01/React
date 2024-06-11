@@ -50,14 +50,14 @@ const Lists = (props) => {
   return (
     <div>
       <div
-        id
+        
         className={`list group list-Group animate__animated animate__bounceIn bg-gray-50 overflow-hidden flex justify-between items-center border border-zinc-700 p-3 mt-3 mb-3 duration-200 ${
           props.isDone
             ? "bg-gray-200 opacity-60 scale-95 pointer-events-none"
             : " bg-gray-50"
         } `}
       >
-        <div id className="flex gap-2 items-center">
+        <div className="flex gap-2 items-center">
           <input
             className="list-check-box accent-zinc-900 check-list-group"
             type="checkbox"
