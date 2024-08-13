@@ -1,22 +1,32 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import useTaskStore from "./store/useTaskStore";
 
-const CreateInputForm = (props) => {
+const CreateInputForm = () => {
   const [text, setText] = useState("");
+
+  const { addTask } = useTaskStore();
 
   const textInputHandler = (event) => {
     setText(event.target.value);
+    // console.log(event.target.value);
+  };
+
+  const newTask = {
+    id: Date.now(),
+    job: text,
+    isDone: false,
   };
 
   const addBtnHandler = () => {
-    props.addTask(text);
+    addTask(newTask);
     setText("");
     toast.success("New List!");
   };
 
   const enterHandler = (event) => {
     if (event.key === "Enter") {
-      props.addTask(text);
+      addTask(newTask);
       setText("");
       toast.success("New List!");
     }
@@ -34,7 +44,7 @@ const CreateInputForm = (props) => {
       />
       <button
         onClick={addBtnHandler}
-        className=" bg-gray-500 px-2 py-1 text-white"
+        className=" bg-neutral-900 px-2 py-1 text-white"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

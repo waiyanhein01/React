@@ -29,29 +29,29 @@ const Todo = () => {
     // },
   ]);
 
-  const addTask = (job) => {
-    const newTask = {
-      id: Date.now(),
-      job,
-      isDone: false,
-    };
-    setTask([...tasks, newTask]);
-  };
+  // const addTask = (job) => {
+  //   const newTask = {
+  //     id: Date.now(),
+  //     job,
+  //     isDone: false,
+  //   };
+  //   setTask([...tasks, newTask]);
+  // };
 
-  const checkTask = (id) => {
-    setTask(
-      tasks.map((task) => {
-        if (id === task.id) {
-          task.isDone = !task.isDone;
-        }
-        return task;
-      })
-    );
-  };
+  // const checkTask = (id) => {
+  //   setTask(
+  //     tasks.map((task) => {
+  //       if (id === task.id) {
+  //         task.isDone = !task.isDone;
+  //       }
+  //       return task;
+  //     })
+  //   );
+  // };
 
-  const deleteTask = (id) => {
-    setTask(tasks.filter((task) => task.id !== id));
-  };
+  // const deleteTask = (id) => {
+  //   setTask(tasks.filter((task) => task.id !== id));
+  // };
 
   const editTask = (newJob, id) => {
     setTask(
@@ -68,14 +68,9 @@ const Todo = () => {
     <div className=" flex flex-col justify-center items-center h-screen bg-slate-200">
       <div className=" border w-[350px] lg:w-[450px] px-10 py-16 rounded-md bg-slate-50 overflow-y-scroll">
         <Heading text="Todo App" />
-        <CreateInputForm addTask={addTask} />
-        <ListStatus tasks={tasks} />
-        <ListGroup
-          editTask={editTask}
-          deleteTask={deleteTask}
-          checkTask={checkTask}
-          tasks={tasks}
-        />
+        <CreateInputForm />
+        <ListStatus />
+        <ListGroup editTask={editTask} />
         <Toaster position="bottom-right" reverseOrder={true} />
       </div>
     </div>

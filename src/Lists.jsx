@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import InputEdit from "./InputEdit";
+import useTaskStore from "./store/useTaskStore";
 
-const Lists = (props) => {
+const Lists = ({task:{id,job,isDone}}) => {
   const [isEdit, setIsEdit] = useState(false);
-  const [inputText, setInputText] = useState(props.job);
+  const [inputText, setInputText] = useState(job);
+
+  const {removeTask,doneTask} = useTaskStore()
 
   const checkBoxHandler = () => {
-    props.checkTask(props.id);
+    doneTask(id);
   };
 
   const delBtnHandler = () => {
@@ -22,7 +25,7 @@ const Lists = (props) => {
       confirmButtonText: "Delete!",
     }).then((result) => {
       if (result.isConfirmed) {
-        props.deleteTask(props.id);
+        removeTask(id);
         toast.success("List Deleted!");
       }
     });
@@ -52,7 +55,7 @@ const Lists = (props) => {
       <div
         
         className={`list group list-Group animate__animated animate__bounceIn bg-gray-50 overflow-hidden flex justify-between items-center border border-zinc-700 p-3 mt-3 mb-3 duration-200 ${
-          props.isDone
+          isDone
             ? "bg-gray-200 opacity-60 scale-95 pointer-events-none"
             : " bg-gray-50"
         } `}
@@ -63,7 +66,7 @@ const Lists = (props) => {
             type="checkbox"
             name="check-box"
             id="checkBox"
-            checked={props.isDone}
+            checked={isDone}
             onChange={checkBoxHandler}
             disabled={isEdit}
           />
@@ -72,10 +75,10 @@ const Lists = (props) => {
       <InputEdit editInputTextUpdate={editInputTextUpdate} editInputText={editInputText} inputText={inputText}/>
       ) : (
       <h1
-        className={` ${props.isDone && "line-through"} list-text`}
+        className={` ${isDone && "line-through"} list-text`}
         htmlFor="checkBox"
       >
-        {props.job}
+        {job}
       </h1>
       )}
         </div>
