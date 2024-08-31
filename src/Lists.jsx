@@ -85,7 +85,7 @@ const Lists = ({task:{id,job,isDone}}) => {
         <div className="flex gap-2 translate-x-[120%] group-hover:translate-x-0 duration-300">
           <button
             onClick={editBtnHandler}
-            className="list-edit-btn border border-zinc-700 px-2 py-1 active:scale-75 duration-200"
+            className="list-edit-btn p-2 border border-neutral-500 rounded-full active:scale-75 duration-200"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -104,7 +104,7 @@ const Lists = ({task:{id,job,isDone}}) => {
           </button>
           <button
             onClick={delBtnHandler}
-            className="list-del-btn border border-zinc-700 px-2 py-1 active:scale-75 duration-200"
+            className="list-del-btn text-red-500 p-2 border border-neutral-500 rounded-full active:scale-75 duration-200"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
