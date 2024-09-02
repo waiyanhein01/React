@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import useTaskStore from "./store/useTaskStore";
+// import useTaskStore from "./store/useTaskStore";
 
-const CreateInputForm = () => {
+const CreateInputForm = ({addTask}) => {
   const [text, setText] = useState("");
 
-  const { addTask } = useTaskStore();
+  // const { addTask } = useTaskStore();
 
   const textInputHandler = (event) => {
     setText(event.target.value);
@@ -13,7 +13,7 @@ const CreateInputForm = () => {
   };
 
   const newTask = {
-    id: Date.now(),
+    // id: Date.now(),
     job: text,
     isDone: false,
   };
@@ -33,10 +33,10 @@ const CreateInputForm = () => {
   };
 
   return (
-    <div className=" mt-3 flex">
+    <div className=" mt-3 flex border border-gray-900 rounded-lg overflow-hidden">
       <input
         type="text"
-        className="border border-gray-900 py-1 ps-3 w-full"
+        className=" py-2 ps-3 w-96 overflow-hidden"
         placeholder="Enter your lists"
         value={text}
         onChange={textInputHandler}
@@ -44,7 +44,7 @@ const CreateInputForm = () => {
       />
       <button
         onClick={addBtnHandler}
-        className=" bg-neutral-900 px-2 py-1 text-white"
+        className=" bg-neutral-900 px-2 py-2 text-white flex justify-center items-center flex-grow"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

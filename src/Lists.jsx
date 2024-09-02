@@ -4,14 +4,15 @@ import toast from "react-hot-toast";
 import InputEdit from "./InputEdit";
 import useTaskStore from "./store/useTaskStore";
 
-const Lists = ({task:{id,job,isDone}}) => {
+const Lists = ({task:{id,job,isDone},checkTask,deleteTask}) => {
   const [isEdit, setIsEdit] = useState(false);
   const [inputText, setInputText] = useState(job);
 
   const {removeTask,doneTask} = useTaskStore()
 
   const checkBoxHandler = () => {
-    doneTask(id);
+    // doneTask(id);
+    checkTask(id,isDone);
   };
 
   const delBtnHandler = () => {
@@ -25,7 +26,8 @@ const Lists = ({task:{id,job,isDone}}) => {
       confirmButtonText: "Delete!",
     }).then((result) => {
       if (result.isConfirmed) {
-        removeTask(id);
+        // removeTask(id);
+        deleteTask(id);
         toast.success("List Deleted!");
       }
     });
@@ -54,9 +56,9 @@ const Lists = ({task:{id,job,isDone}}) => {
     <div>
       <div
         
-        className={`list group list-Group animate__animated animate__bounceIn bg-gray-50 overflow-hidden flex justify-between items-center border border-zinc-700 p-3 mt-3 mb-3 duration-200 ${
+        className={`list list-Group animate__animated animate__bounceIn bg-gray-50 overflow-hidden rounded-lg flex justify-between items-center border border-zinc-700 p-3 mt-3 mb-3 duration-200 ${
           isDone
-            ? "bg-gray-200 opacity-60 scale-95 pointer-events-none"
+            ? "bg-gray-200 opacity-60 scale-95"
             : " bg-gray-50"
         } `}
       >
@@ -82,8 +84,8 @@ const Lists = ({task:{id,job,isDone}}) => {
       </h1>
       )}
         </div>
-        <div className="flex gap-2 translate-x-[120%] group-hover:translate-x-0 duration-300">
-          <button
+        <div className="flex gap-2">
+          {/* <button
             onClick={editBtnHandler}
             className="list-edit-btn p-2 border border-neutral-500 rounded-full active:scale-75 duration-200"
           >
@@ -101,10 +103,10 @@ const Lists = ({task:{id,job,isDone}}) => {
                 d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
               />
             </svg>
-          </button>
+          </button> */}
           <button
             onClick={delBtnHandler}
-            className="list-del-btn text-red-500 p-2 border border-neutral-500 rounded-full active:scale-75 duration-200"
+            className="list-del-btn text-red-500 active:scale-75 duration-200"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -112,7 +114,7 @@ const Lists = ({task:{id,job,isDone}}) => {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              className="w-4 h-4 pointer-events-none"
+              className="w-5 h-5 pointer-events-none"
             >
               <path
                 strokeLinecap="round"

@@ -1,22 +1,23 @@
 import React from "react";
 import EmptyList from "./EmptyList";
 import Lists from "./Lists";
-import useTaskStore from "./store/useTaskStore";
+import ListLoading from "./ListLoading";
+// import useTaskStore from "./store/useTaskStore";
 
-const ListGroup = () => {
-  const {tasks} = useTaskStore()
+const ListGroup = ({ tasks, isLoading,checkTask,deleteTask }) => {
+  // const {tasks} = useTaskStore()
   return (
     <div className="mt-3">
-      <EmptyList />
-      {tasks.map((task) => (
-        <Lists task={task} key={task.id} />
-      ))}
-      {/* {tasks.map((task) => (
-        <div className={`${task.isDone && "opacity-40"} border border-gray-300 mb-3 p-2`} key={task.id}>
-            <p>{task.id} | {task.isDone ? "Done" : "Not yet"}</p>
-            <p>{task.job}</p>
+      {isLoading ? (
+        <ListLoading/>
+      ) : (
+        <div className="">
+          <EmptyList />
+          {tasks.map((task) => (
+            <Lists deleteTask={deleteTask} checkTask={checkTask} task={task} key={task.id} />
+          ))}
         </div>
-      ))} */}
+      )}
     </div>
   );
 };

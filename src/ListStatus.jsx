@@ -1,19 +1,25 @@
 import React from "react";
-import useTaskStore from "./store/useTaskStore";
+import ListStatusLoading from "./ListStatusLoading";
+// import useTaskStore from "./store/useTaskStore";
 
-const ListStatus = () => {
-  const {tasks} = useTaskStore()
+const ListStatus = ({ tasks, isLoading }) => {
+  // const {tasks} = useTaskStore()
   return (
     <div className="flex justify-between mt-3">
-      <h1 className="">Your lists</h1>
+      <h1 className=" font-serif text-sm lg:text-xl font-bold">Your lists</h1>
       <div className="">
-        <div>
-          Done{""}
-          <span>
-            (<span id="doneCount">{tasks.filter(task => task.isDone === true).length}</span>
-            /
-            <span id="allCount">{tasks.length}</span>)
-          </span>
+        <div className="font-mono text-sm lg:text-lg font-bold">
+          {isLoading ? (
+            <ListStatusLoading/>
+          ) : (
+            <span>
+              (
+              <span id="doneCount">
+                Done {tasks.filter((task) => task.isDone === true).length}
+              </span>
+              /<span id="allCount">Total {tasks.length}</span>)
+            </span>
+          )}
         </div>
       </div>
     </div>
