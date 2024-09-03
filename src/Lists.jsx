@@ -13,7 +13,7 @@ const Lists = ({
 }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [inputText, setInputText] = useState(job);
-  const [checkboxLoading,setCheckboxLoading] = useState(false)
+  const [checkboxLoading, setCheckboxLoading] = useState(false);
 
   square.register();
 
@@ -22,9 +22,9 @@ const Lists = ({
   const checkBoxHandler = async () => {
     // doneTask(id);
     // await checkTask(id,isDone);
-    setCheckboxLoading(true)
+    setCheckboxLoading(true);
     await checkTask(id, isDone);
-    setCheckboxLoading(false)
+    setCheckboxLoading(false);
   };
 
   const delBtnHandler = () => {
@@ -64,6 +64,8 @@ const Lists = ({
     }
   };
 
+  const date = new Date();
+
   return (
     <div>
       <div
@@ -71,7 +73,7 @@ const Lists = ({
           isDone ? "bg-gray-200 opacity-60 scale-95" : " bg-gray-50"
         } `}
       >
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-3 items-center">
           {checkboxLoading ? (
             <l-square
               size="13"
@@ -101,12 +103,15 @@ const Lists = ({
               inputText={inputText}
             />
           ) : (
-            <h1
-              className={` ${isDone && "line-through"} list-text`}
-              htmlFor="checkBox"
-            >
-              {job}
-            </h1>
+            <div className="">
+              <h1
+                className={` ${isDone && "line-through"} list-text`}
+                htmlFor="checkBox"
+              >
+                {job}
+              </h1>
+              <h2 className=" text-sm text-neutral-400">{date.toLocaleString().slice(0,8)}</h2>
+            </div>
           )}
         </div>
         <div className="flex gap-2">

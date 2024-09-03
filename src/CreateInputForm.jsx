@@ -43,7 +43,7 @@ const CreateInputForm = ({ addTask, sending }) => {
       <input
         type="text"
         className=" py-2 ps-3 lg:w-96 w-48 overflow-hidden disabled:cursor-not-allowed disabled:opacity-30"
-        placeholder="Enter your lists"
+        placeholder="Enter your list"
         value={text}
         onChange={textInputHandler}
         onKeyUp={enterHandler}

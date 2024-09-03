@@ -3,7 +3,7 @@
     {
       "id": 1,
       "job": "Frontend Developer",
-      "isDone": true
+      "isDone": false
     },
     {
       "id": 2,
@@ -19,11 +19,6 @@
       "id": 4,
       "job": "UI/UX Designer",
       "isDone": true
-    },
-    {
-      "job": "asdf",
-      "isDone": false,
-      "id": 5
     }
   ]
 }
