@@ -5,9 +5,9 @@ import ListStatusLoading from "./ListStatusLoading";
 const ListStatus = ({ tasks, isLoading }) => {
   // const {tasks} = useTaskStore()
   return (
-    <div className="flex justify-between mt-3">
+    <div className="flex justify-between items-center mt-3">
       <h1 className=" font-serif text-sm lg:text-xl font-bold">Your lists</h1>
-      <div className="">
+      <div className=" bg-blue-500 p-2 rounded-lg text-white">
         <div className="font-mono text-sm lg:text-lg font-bold">
           {isLoading ? (
             <ListStatusLoading/>

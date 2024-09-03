@@ -2,17 +2,29 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import InputEdit from "./InputEdit";
-import useTaskStore from "./store/useTaskStore";
+import { square } from "ldrs";
+// import useTaskStore from "./store/useTaskStore";
 
-const Lists = ({task:{id,job,isDone},checkTask,deleteTask}) => {
+const Lists = ({
+  task: { id, job, isDone },
+  checkTask,
+  deleteTask,
+  // checkboxLoading,
+}) => {
   const [isEdit, setIsEdit] = useState(false);
   const [inputText, setInputText] = useState(job);
+  const [checkboxLoading,setCheckboxLoading] = useState(false)
 
-  const {removeTask,doneTask} = useTaskStore()
+  square.register();
 
-  const checkBoxHandler = () => {
+  // const {removeTask,doneTask} = useTaskStore()
+
+  const checkBoxHandler = async () => {
     // doneTask(id);
-    checkTask(id,isDone);
+    // await checkTask(id,isDone);
+    setCheckboxLoading(true)
+    await checkTask(id, isDone);
+    setCheckboxLoading(false)
   };
 
   const delBtnHandler = () => {
@@ -24,16 +36,16 @@ const Lists = ({task:{id,job,isDone},checkTask,deleteTask}) => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Delete!",
+      showLoaderOnConfirm: true,
+      preConfirm: async () => {
+        await deleteTask(id);
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         // removeTask(id);
-        deleteTask(id);
         toast.success("List Deleted!");
       }
     });
-    // if (confirm("Are u sure to delete?")) {
-    //   props.deleteTask(props.id);
-    // }
   };
 
   const editBtnHandler = () => {
@@ -55,34 +67,47 @@ const Lists = ({task:{id,job,isDone},checkTask,deleteTask}) => {
   return (
     <div>
       <div
-        
-        className={`list list-Group animate__animated animate__bounceIn bg-gray-50 overflow-hidden rounded-lg flex justify-between items-center border border-zinc-700 p-3 mt-3 mb-3 duration-200 ${
-          isDone
-            ? "bg-gray-200 opacity-60 scale-95"
-            : " bg-gray-50"
+        className={`list list-Group animate__animated animate__bounceIn bg-gray-50 overflow-hidden rounded-lg flex justify-between items-center border border-blue-500 p-3 mt-3 mb-3 duration-200 ${
+          isDone ? "bg-gray-200 opacity-60 scale-95" : " bg-gray-50"
         } `}
       >
         <div className="flex gap-2 items-center">
-          <input
-            className="list-check-box accent-zinc-900 check-list-group"
-            type="checkbox"
-            name="check-box"
-            id="checkBox"
-            checked={isDone}
-            onChange={checkBoxHandler}
-            disabled={isEdit}
-          />
+          {checkboxLoading ? (
+            <l-square
+              size="13"
+              stroke="3"
+              stroke-length="0.25"
+              bg-opacity="0.1"
+              speed="1.5"
+              color="#3b82f6"
+            ></l-square>
+          ) : (
+            <input
+              className="list-check-box accent-blue-500 check-list-group"
+              type="checkbox"
+              name="check-box"
+              id="checkBox"
+              checked={isDone}
+              onChange={checkBoxHandler}
+              // disabled={isEdit}
+              disabled={checkboxLoading}
+            />
+          )}
 
           {isEdit ? (
-      <InputEdit editInputTextUpdate={editInputTextUpdate} editInputText={editInputText} inputText={inputText}/>
-      ) : (
-      <h1
-        className={` ${isDone && "line-through"} list-text`}
-        htmlFor="checkBox"
-      >
-        {job}
-      </h1>
-      )}
+            <InputEdit
+              editInputTextUpdate={editInputTextUpdate}
+              editInputText={editInputText}
+              inputText={inputText}
+            />
+          ) : (
+            <h1
+              className={` ${isDone && "line-through"} list-text`}
+              htmlFor="checkBox"
+            >
+              {job}
+            </h1>
+          )}
         </div>
         <div className="flex gap-2">
           {/* <button
