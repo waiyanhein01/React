@@ -1,13 +1,16 @@
-// server.js
+const path = require('path');
+const express = require('express');
 const jsonServer = require('json-server');
-const server = jsonServer.create();
-const router = jsonServer.router('tasks.json'); // Your JSON file name
-const middlewares = jsonServer.defaults();
+const app = express();
+const router = jsonServer.router('tasks.json');
 
-server.use(middlewares);
-server.use(router);
+app.use('/api', router);
 
-const port = process.env.PORT || 5000;
-server.listen(port, () => {
-  console.log(`JSON Server is running on port ${port}`);
+app.use(express.static(path.join(__dirname, 'dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT)
