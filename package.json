@@ -4,15 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "json-server": "json-server tasks.json -d 1000 -p 5000 -watch",
+    "server": "json-server tasks.json -d 1000 -p 5000 --watch",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "serve": "vite preview",
-    "server": "node server.js",
-    "heroku-postbuild": "npm run build",
-    "start": "node server.js",
+    "start": "vite",
     "start:all": "concurrently \"npm run server\" \"npm run start\""
   },
   "dependencies": {
